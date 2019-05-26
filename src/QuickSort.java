@@ -4,9 +4,16 @@ public class QuickSort {
     public static void sort(int[] array) {
         sort(array, 0, array.length -1);
     }
-    public static void sort(int[] array, int left, int right) {
-        int pivot = (int) Math.random() * array.length;
+    public static void sort(int[] array, int start, int end) {
+        int right = start;
+        int left = end;
+        if (right < left){
+            return;
+        }
+        int pivot = (right + left)/2;
+        System.out.println(start + ", " + end + ", " + pivot);
         while (left < right) {
+
             if (array[left] > array[pivot] && array[right] < array[pivot]) {
                 int value = array[left];
                 array[left] = array[right];
@@ -17,11 +24,16 @@ public class QuickSort {
                 left++;
             } else if (array[right] >= array[pivot]){
                 right--;
+
             }
+
+        }
+        if (right > 0) {
+            sort(array, start, left - 1);
+            sort(array, left, end);
         }
 
-        sort(array, 0, right );
-        sort(array, right, array.length -1 );
+
 
 
     }

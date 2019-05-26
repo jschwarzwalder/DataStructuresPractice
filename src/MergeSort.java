@@ -76,7 +76,7 @@ public class MergeSort {
         }
         System.arraycopy(array, left, placehodler, index, leftEnd - left + 1);
         System.arraycopy(array, right, placehodler, index, rightEnd - right + 1);
-        //copy back to the originoal array
+        //copy back to the original array
         System.arraycopy(placehodler, leftStart, array, leftStart, size);
     }
 
