@@ -1,19 +1,22 @@
+import java.util.ArrayList;
+
 public class MergeSort {
     private static int[] placehodler;
 
-    public int[] sort(int[] array) {
+    public static int[] sort(int[] array) {
+        return sort(array, 0, array.length);
+    }
 
+    public static int[] sort(int[] array, int leftindex, int rightindex) {
 
         if (array.length > 1) {
+            int[] tempArray = new int[array.length];
             int midpoint = array.length / 2;
-            int[] left = sort(array[0:midpoint]);
-            int[] right = sort(array[midpoint:-]);
+            int[] left = sort(array, 0, midpoint);
+            int[] right = sort(array, midpoint, rightindex);
             if (left.length <= 1 && right.length <= 1) {
-                int tempLength = left.length + right.length;
-                int[] tempArray = new int[tempLength];
-                int rightindex = 0;
-                int leftindex = 0;
-                for (int i = 0; i < tempLength; i++) {
+
+                for (int i = 0; i < array.length; i++) {
                     if (leftindex < left.length && left[leftindex] < right[rightindex]) {
                         tempArray[i] = left[leftindex];
                         left[leftindex]++;
@@ -27,6 +30,7 @@ public class MergeSort {
 
 
             }
+            return tempArray;
 
         } else {
             return array;
@@ -75,4 +79,40 @@ public class MergeSort {
         //copy back to the originoal array
         System.arraycopy(placehodler, leftStart, array, leftStart, size);
     }
+
+    public static void main(String[] args) {
+        ArrayList<int[]> Tests = new ArrayList<int[]>();
+        Tests.add(new int[]{10, 9, 8, 7, 6, 5, 4, 3, 2, 1});
+        Tests.add(new int[]{});
+        Tests.add(new int[]{-1, 0, -5, 5, 0, 4, -10});
+        Tests.add(new int[]{1, 3, 5, 4, 2, 6});
+        Tests.add(new int[]{0, 1, 0, 1, 0, 1});
+
+        for (int[] test : Tests) {
+            System.out.print("test : ");
+            mergesort(test);
+            for (int i : test) {
+                System.out.print(i + ", ");
+            }
+            System.out.print("\n");
+        }
+
+        ArrayList<int[]> Tests2 = new ArrayList<int[]>();
+        Tests2.add(new int[]{10, 9, 8, 7, 6, 5, 4, 3, 2, 1});
+        Tests2.add(new int[]{});
+        Tests2.add(new int[]{-1, 0, -5, 5, 0, 4, -10});
+        Tests2.add(new int[]{1, 3, 5, 4, 2, 6});
+        Tests2.add(new int[]{0, 1, 0, 1, 0, 1});
+        for (int[] test : Tests2) {
+            System.out.print("test : ");
+
+                int[] sortedtest = sort(test);
+                for (int i : sortedtest) {
+                System.out.print(i + ", ");
+            }
+            System.out.print("\n");
+        }
+
+    }
 }
+

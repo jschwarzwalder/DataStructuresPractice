@@ -1,8 +1,11 @@
+import java.util.ArrayList;
+
 public class QuickSort {
-    public void sort(int[] array) {
+    public static void sort(int[] array) {
+        sort(array, 0, array.length -1);
+    }
+    public static void sort(int[] array, int left, int right) {
         int pivot = (int) Math.random() * array.length;
-        int left = 0;
-        int right = array.length - 1;
         while (left < right) {
             if (array[left] > array[pivot] && array[right] < array[pivot]) {
                 int value = array[left];
@@ -12,13 +15,13 @@ public class QuickSort {
                 right--;
             } else if (array[left] <= array[pivot]) {
                 left++;
-            } else if (array[right] >= array[pivot])){
+            } else if (array[right] >= array[pivot]){
                 right--;
             }
         }
 
-        sort(array[0:left]);
-        sort(array[right:-1]);
+        sort(array, 0, right );
+        sort(array, right, array.length -1 );
 
 
     }
@@ -58,5 +61,39 @@ public class QuickSort {
         }
 
         return left;
+    }
+
+    public static void main(String[] args) {
+        ArrayList<int[]> Tests = new ArrayList<int[]>();
+        Tests.add(new int[]{10, 9, 8, 7, 6, 5, 4, 3, 2, 1});
+        Tests.add(new int[]{});
+        Tests.add(new int[]{-1, 0, -5, 5, 0, 4, -10});
+        Tests.add(new int[]{1, 3, 5, 4, 2, 6});
+        Tests.add(new int[]{0, 1, 0, 1, 0, 1});
+
+        for (int[] test : Tests) {
+            System.out.print("test : ");
+            quicksort(test);
+            for (int i : test) {
+                System.out.print(i + ", ");
+            }
+            System.out.print("\n");
+        }
+
+        ArrayList<int[]> Tests2 = new ArrayList<int[]>();
+        Tests2.add(new int[]{10, 9, 8, 7, 6, 5, 4, 3, 2, 1});
+        Tests2.add(new int[]{});
+        Tests2.add(new int[]{-1, 0, -5, 5, 0, 4, -10});
+        Tests2.add(new int[]{1, 3, 5, 4, 2, 6});
+        Tests2.add(new int[]{0, 1, 0, 1, 0, 1});
+
+        for (int[] test : Tests2) {
+            System.out.print("test : ");
+            sort(test);
+            for (int i : test) {
+                System.out.print(i + ", ");
+            }
+            System.out.print("\n");
+        }
     }
 }
