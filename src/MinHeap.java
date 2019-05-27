@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class MinHeap {
     private int capacity = 10;
     private int size = 0;
@@ -25,6 +27,69 @@ public class MinHeap {
 
     private int leftChild(int index) {return items[getLeftChildIndex(index)];}
     private int rightChild(int index) {return items[getRightChildIndex(index)];}
-    private int parent(int index) {return items[getParentIndex(index)]}
+    private int parent(int index) {return items[getParentIndex(index)];}
+
+    private void swap (int indexOne, int indexTwo) {
+        int temp = items[indexOne];
+        items[indexOne] = items[indexTwo];
+        items[indexTwo] = temp;
+    }
+
+    private void ensureExtraCapacity(){
+        if(size == capacity){
+            items = Arrays.copyOf(items, capacity * 2);
+            capacity *= 2;
+        }
+    }
+    
+    public int peek(){
+        if (size == 0) throw new IllegalArgumentException();
+        return items[0];
+    }
+    
+    public int poll() {
+        if (size == 0) throw new IllegalArgumentException();
+        int item = items[0];
+        items[0] = items[size -1];
+        size --;
+        heapifyDown();
+        return item;
+    }
+
+
+    public void add(int item) {
+        ensureExtraCapacity();
+        items[size] = item;
+        size++;
+        heapifyUp();
+    }
+
+    private void heapifyDown() {
+        int index = 0;
+        while(hasLeftChild(index)){
+            int smallerChildIndex = getLeftChildIndex(index);
+            if (hasRightChild(index) && rightChild(index) < leftChild(index)){
+                smallerChildIndex = getRightChildIndex(index);
+            }
+
+            if (items[index] < items[smallerChildIndex]){
+                break;
+            }
+            else {
+                swap(index, smallerChildIndex);
+
+            }
+            index = smallerChildIndex;
+        }
+
+    }
+
+    private void heapifyUp() {
+        int index = size - 1;
+        while(hasParent(index) && parent(index) > items[index]){
+            swap(getParentIndex(index), index);
+            index = getParentIndex(index);
+        }
+    }
 
 }

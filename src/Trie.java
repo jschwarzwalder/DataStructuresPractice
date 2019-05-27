@@ -2,14 +2,49 @@ public class Trie {
     public static class Node {
         private static int NUMBER_OF_CHARACTHERS = 26;
         Node[] children = new Node[NUMBER_OF_CHARACTHERS];
+        int size = 0;
 
-        private Node getNode(char c) {}
+        private static int getindex(char c){
+            return c - 'a';
+        }
 
-        private void setNode (char c, Node node){}
+        private Node getNode(char c) {
+           return children[getindex(c)];
 
-        private void add (String s, int index){}
+        }
 
-        public int findCount(String s, int index) {}
+        private void setNode (char c, Node node){
+            children[getindex(c)] = node;
+        }
+
+        private void add (String s){
+            add(s, 0);
+        }
+
+        private void add (String s, int index){
+            size++;
+            if(index == s.length()) return;
+            char current = s.charAt(index);
+            int charCode = getindex(current);
+
+            Node child = getNode(current);
+            if (child == null){
+                child =  new Node();
+                setNode(current,child);
+            }
+            child.add(s, index +1);
+        }
+
+        public int findCount(String s, int index) {
+            if(index == s.length()){
+                return size;
+            }
+            Node child = getNode(s.charAt(index));
+            if(child == null){
+                return 0;
+            }
+            return child.findCount(s, index +1);
+        }
 
     }
 
